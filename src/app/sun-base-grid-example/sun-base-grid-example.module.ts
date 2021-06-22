@@ -40,4 +40,10 @@ import { SunBaseGridExampleRoutingModule } from './sun-base-grid-example-routing
     TranslateService
   ]
 })
-export class SunBaseGridExampleModule { }
+export class SunBaseGridExampleModule {
+  constructor(private translate: TranslateService) {
+    translate.addLangs(['en', 'ja', 'de', 'zh', 'fr']);
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
+}
