@@ -7,42 +7,6 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
 import {
-  MatDividerModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatSelectModule,
-  MatSortModule,
-  MatTableModule,
-  MatProgressBarModule,
-  MatAutocompleteModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatStepperModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule
-} from '@angular/material';
-
-import {
   SunGridModule,
   SunMenuModule,
   SunToolBarModule,
@@ -52,9 +16,6 @@ import {
 } from 'sunbird-seven-ui';
 import { SunBaseGridExampleDataService } from './sun-base-grid-example-data.service';
 import { SunBaseGridExampleComponent } from './sun-base-grid-example.component';
-
-import { SunBaseGridExampleColumnFilterService } from './sun-base-grid-example-column-filter.service';
-import { SunOverrideTextFilterComponent } from './text/override-text-filter.component';
 
 import { SunCellRendererService } from 'sunbird-seven-ui';
 import { CustomRightMenuComponent } from './dialogs/custom-right-menu.component';
@@ -66,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 import { SunBaseGridExampleRoutingModule } from './sun-base-grid-example-routing.module';
 
 @NgModule({
-  declarations: [SunBaseGridExampleComponent, SunOverrideTextFilterComponent, CustomRightMenuComponent],
+  declarations: [SunBaseGridExampleComponent, CustomRightMenuComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -79,39 +40,6 @@ import { SunBaseGridExampleRoutingModule } from './sun-base-grid-example-routing
         deps: [HttpClient]
       }
     }),
-    MatDividerModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule,
-    MatSortModule,
-    MatTableModule,
-    MatProgressBarModule,
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatStepperModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
     SunGridModule,
     SunMenuModule,
     SunToolBarModule,
@@ -120,11 +48,10 @@ import { SunBaseGridExampleRoutingModule } from './sun-base-grid-example-routing
     SunCheckboxModule,
     SunBaseGridExampleRoutingModule
   ],
-  exports: [SunBaseGridExampleComponent, SunOverrideTextFilterComponent, CustomRightMenuComponent],
-  entryComponents: [SunOverrideTextFilterComponent, CustomRightMenuComponent],
+  exports: [SunBaseGridExampleComponent, CustomRightMenuComponent],
+  entryComponents: [CustomRightMenuComponent],
   providers: [
     SunBaseGridExampleDataService,
-    SunBaseGridExampleColumnFilterService,
     SunCellRendererService,
     TranslateService
   ]

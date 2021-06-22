@@ -3,10 +3,9 @@ import { Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DateAdapter } from '@angular/material';
 import { SunBaseGridComponent, SunField, SunSelectFieldType, SunMenuItem } from 'sunbird-seven-ui';
-import { SunBaseGridDataSource, SunGroupHeader, SunCellRendererService, SunCellEditService } from 'sunbird-seven-ui';
+import { SunBaseGridDataSource, SunGroupHeader, SunCellRendererService, SunCellEditService, SunColumnFilterService } from 'sunbird-seven-ui';
 import { SunLocaleService, SunDialogService } from 'sunbird-seven-ui';
 import { SunBaseGridExampleDataService } from './sun-base-grid-example-data.service';
-import { SunBaseGridExampleColumnFilterService } from './sun-base-grid-example-column-filter.service';
 import { CustomRightMenuComponent, AppColumn } from './dialogs/custom-right-menu.component';
 import { Car } from './sun-base-grid-example.datasource';
 
@@ -21,7 +20,7 @@ export class SunBaseGridExampleComponent extends SunBaseGridComponent<Car> imple
 
   constructor(
     protected dataSourceService: SunBaseGridExampleDataService,
-    columnFilterService: SunBaseGridExampleColumnFilterService,
+    columnFilterService: SunColumnFilterService,
     cellRendererService: SunCellRendererService,
     cellEditService: SunCellEditService,
     private translate: TranslateService,
