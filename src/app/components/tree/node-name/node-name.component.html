@@ -1,0 +1,16 @@
+<div [ngClass]="!hasChild() ? 'sun-tree-leaf-node-name' : ''"
+  [sunTreeNodePadding]="node.level" sunTreeNodePaddingIndent="15"
+  (contextmenu)="nodeRightClick()"
+  [sunPopover]="menuPanelComponent"
+  [sunPopoverContext]="{menuItems: node.contextMenu, data: node}">
+  <button sun-button appearance="ghost" *ngIf="hasChild()" (click)="nodeToggle($event)" [attr.aria-label]="'toggle ' + node.name">
+    <sun-icon [config]="dataSource.treeControl.isExpanded(node) ? 'chevron-down' : 'chevron-right'"></sun-icon>
+  </button>
+  <button sun-button appearance="ghost"><sun-icon *ngIf="node.icon" [config]="node.icon"></sun-icon></button>
+  <span *ngIf="!isEditable()">{{node.name}}</span>
+  <input #inputEl sunInput *ngIf="isEditable()" class="sun-tree-node-name-edit"
+    type="text" autocomplete="off"
+    (blur)="onBlur()"
+    (keyup)="valueChanged($event, $event.target.value)"
+    [value]="value">
+</div>

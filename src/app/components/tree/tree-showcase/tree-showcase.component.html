@@ -1,0 +1,38 @@
+<sun-page-header>
+  <sun-page-title>Tree</sun-page-title>
+  <sun-page-subtitle>&lt;sun-tree&gt;</sun-page-subtitle>
+
+  <div class="flex-spacer"></div>
+  <ol class="breadcrumbs">
+    <li><a routerLink="/">Home</a></li>
+    <li>&bull;</li>
+    <li><a routerLink="/components">Components</a></li>
+    <li>&bull;</li>
+    <li>Tree</li>
+  </ol>
+</sun-page-header>
+
+<sun-panel>
+  <sun-panel-header>Nested Tree Show Case</sun-panel-header>
+  <sun-panel-content>
+    <sun-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <sun-nested-tree-node *sunTreeNodeDef="let node">
+        <app-tree-node-name
+          [node]="node"
+          [dataSource]="dataSource"
+          [selection]="selection">
+        </app-tree-node-name>
+      </sun-nested-tree-node>
+      <sun-nested-tree-node *sunTreeNodeDef="let node; when: hasChild">
+        <app-tree-node-name
+          [node]="node"
+          [dataSource]="dataSource"
+          [selection]="selection">
+        </app-tree-node-name>
+        <div [class.sun-tree-node-invisible]="!treeControl.isExpanded(node)">
+          <ng-container sunTreeNodeOutlet></ng-container>
+        </div>
+      </sun-nested-tree-node>
+    </sun-tree>
+  </sun-panel-content>
+</sun-panel>

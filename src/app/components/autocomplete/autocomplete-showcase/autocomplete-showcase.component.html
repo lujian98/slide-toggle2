@@ -1,0 +1,77 @@
+<sun-page-header>
+  <sun-page-title>Autocomplete Examples</sun-page-title>
+</sun-page-header>
+
+
+<sun-panel>
+  <sun-panel-header>Simple sun-form-field Autocomplete with sunSuffix</sun-panel-header>
+  <sun-panel-content>
+    <form class="app-form-field">
+      <sun-form-field>
+        <input sunInput
+          placeholder="Search..."
+          [formControl]="control"
+          [sunAutocomplete]="autocomplete"
+          (isOverlayOpen)="isOverlayShow($event)">
+        <sun-icon *ngIf="control.value" icon="remove" sunSuffix (click)="clearSelected($event)"></sun-icon>
+        <sun-icon icon="angle-down" iconClass="angle-down-up" sunSuffix [ngStyle]="{'display':isOverlayOpen? 'none': ''}"></sun-icon>
+        <sun-icon *ngIf="isOverlayOpen" icon="angle-up" iconClass="angle-down-up" sunSuffix></sun-icon>
+        <sun-autocomplete #autocomplete="sunAutocomplete" [displayWith]="displayFn">
+          <ng-template sunAutocompleteContent>
+            <ng-container *ngIf="(states | filter: filterValue:'state' ) as result">
+              <sun-option *ngFor="let option of result" [value]="option" (click)="optionSelected(option)">
+                <span [innerHTML]="option.state | sunHighlight: filterValue" ></span>
+              </sun-option>
+              <sun-option class="no-result" *ngIf="!result.length">No result...</sun-option>
+            </ng-container>
+          </ng-template>
+        </sun-autocomplete>
+      </sun-form-field>
+    </form>
+  </sun-panel-content>
+</sun-panel>
+
+<sun-panel>
+  <sun-panel-header>Default sun-form-field Autocomplete</sun-panel-header>
+  <sun-panel-content>
+    <form>
+      <sun-form-field>
+        <sun-label>Search</sun-label>
+        <input sunInput
+          [formControl]="control2"
+          [sunAutocomplete]="autocomplete2">
+        <sun-icon icon="angle-down" iconClass="angle-down-up" sunSuffix></sun-icon>
+        <sun-autocomplete #autocomplete2="sunAutocomplete" [displayWith]="displayFn">
+          <ng-template sunAutocompleteContent>
+            <ng-container *ngIf="(states | filter: control2.value:'state' ) as result">
+              <sun-option *ngFor="let option of result" [value]="option" (click)="optionSelected(option)">
+                {{ option.state }}
+              </sun-option>
+              <sun-option class="no-result" *ngIf="!result.length">No result...</sun-option>
+            </ng-container>
+          </ng-template>
+        </sun-autocomplete>
+      </sun-form-field>
+    </form>
+  </sun-panel-content>
+</sun-panel>
+
+<sun-panel>
+  <sun-panel-header>Simple Autocomplete</sun-panel-header>
+  <sun-panel-content>
+    <input sunInput class="autocomplete-demo3"
+      placeholder="Search..."
+      [formControl]="control3"
+      [sunAutocomplete]="autocomplete3">
+    <sun-autocomplete #autocomplete3="sunAutocomplete" [displayWith]="displayFn">
+      <ng-template sunAutocompleteContent>
+        <ng-container *ngIf="(states | filter: control3.value:'state' ) as result">
+          <sun-option *ngFor="let option of result" [value]="option" (click)="optionSelected(option)">
+            {{ option.state }}
+          </sun-option>
+          <sun-option class="no-result" *ngIf="!result.length">No result...</sun-option>
+        </ng-container>
+      </ng-template>
+    </sun-autocomplete>
+  </sun-panel-content>
+</sun-panel>

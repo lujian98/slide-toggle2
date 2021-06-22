@@ -1,0 +1,52 @@
+{
+  "Add": "添加",
+  "Remove": "清除",
+  "Configure": "配置",
+  "User": "用户",
+  "Activate": "启用",
+  "Deactivate": "停用",
+  "Edit": "编辑",
+  "Delete": "删除",
+
+  "Chinese": "中文",
+  "English": "英语",
+  "French": "法语",
+  "German": "德语",
+  "Japanese": "日语",
+  "Language": "语言",
+
+  "Columns": "总列数",
+  "Filters": "筛选",
+  "Rows": "行范围",
+  "Total Rows": "总行数",
+
+  "Sort Ascending": "按升序排列",
+  "Sort Descending": "按降序排列",
+  "Remove Sort": "删除排序",
+  "Hide Column": "隐藏列",
+  "Clear": "清除",
+  "Refresh": "刷新",
+  "Save States": "保存状态",
+  "Load States": "装入状态",
+  "Export File": "导出文件",
+
+  "From": "从",
+  "To": "至",
+  "Apply": "应用",
+  "Cancel": "取消",
+  "Today": "今天",
+  "Yesterday": "昨天",
+  "Choose a date range": "选择日期范围",
+  "Last 7 Days": "过去7天",
+  "Last 30 Days": "过去30天",
+  "This Month": "本月",
+  "Last Month": "上月",
+  "This Week": "本星期",
+  "Last Week": "上星期",
+
+  "Select a date": "选择一个日期",
+  "7 Days Ago": "7天前",
+  "Selected Date": "选定日期",
+
+  "Create Date": "创建日期"
+}

@@ -1,0 +1,43 @@
+<sun-panel>
+  <sun-panel-header>Nested Tree Node Drag and Drop</sun-panel-header>
+  <sun-panel-content>
+    <sun-tree [dataSource]="dataSource" [treeControl]="treeControl"
+      cdkDropList
+      [cdkDropListSortingDisabled]="true"
+      (cdkDropListDropped)="drop($event)">
+      <sun-nested-tree-node *sunTreeNodeDef="let node"
+        cdkDrag
+        (cdkDragStarted)="dragStart(node)"
+        (cdkDragMoved)="dragMoved($event)"
+        [cdkDragData]="node">
+        <app-tree-node-name class="sun-drag-drop-node" [attr.tree-node-id]="node.id" [attr.id]="node.id"
+          [node]="node"
+          [dataSource]="dataSource"
+          [selection]="selection">
+        </app-tree-node-name>
+        <div class="sun-tree-drag-preview" [ngStyle]="{'width': dragPreviewWidth + 'px'}" *cdkDragPreview>
+          <app-tree-node-name [node]="node" [dataSource]="dataSource" [selection]="selection">
+          </app-tree-node-name>
+        </div>
+      </sun-nested-tree-node>
+      <sun-nested-tree-node *sunTreeNodeDef="let node; when: hasChild"
+        cdkDrag
+        (cdkDragStarted)="dragStart(node)"
+        (cdkDragMoved)="dragMoved($event)"
+        [cdkDragData]="node">
+        <app-tree-node-name class="sun-drag-drop-node" [attr.tree-node-id]="node.id" [attr.id]="node.id"
+          [node]="node"
+          [dataSource]="dataSource"
+          [selection]="selection">
+        </app-tree-node-name>
+        <div class="sun-tree-drag-preview" [ngStyle]="{'width': dragPreviewWidth + 'px'}" *cdkDragPreview>
+          <app-tree-node-name [node]="node" [dataSource]="dataSource" [selection]="selection">
+          </app-tree-node-name>
+        </div>
+        <div [class.sun-tree-node-invisible]="!treeControl.isExpanded(node)">
+          <ng-container sunTreeNodeOutlet></ng-container>
+        </div>
+      </sun-nested-tree-node>
+    </sun-tree>
+  </sun-panel-content>
+</sun-panel>

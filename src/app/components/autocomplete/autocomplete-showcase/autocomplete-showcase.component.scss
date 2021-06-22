@@ -1,0 +1,26 @@
+
+.app-form-field {
+  ::ng-deep {
+    .sun-form-field-label {
+      display: none;
+    }
+
+    .sun-form-field-wrapper {
+      flex: 1;
+    }
+
+    .sun-form-field-suffix {
+      sun-icon {
+        padding: 0 10px;
+      }
+    }
+  }
+}
+
+.angle-down-up {
+  font-size: 1.25rem;
+}
+
+.autocomplete-demo3 {
+  width: 100%;
+}

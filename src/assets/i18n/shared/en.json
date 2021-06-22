@@ -1,0 +1,52 @@
+{
+  "Add": "Add",
+  "Remove": "Remove",
+  "Configure": "Configure",
+  "User": "User",
+  "Activate": "Activate",
+  "Deactivate": "Deactivate",
+  "Edit": "Edit",
+  "Delete": "Delete",
+
+  "Chinese": "Chinese",
+  "English": "English",
+  "French": "French",
+  "German": "German",
+  "Japanese": "Japanese",
+  "Language": "Language",
+
+  "Columns": "Columns",
+  "Filters": "Filters",
+  "Rows": "Rows",
+  "Total Rows": "Total Rows",
+
+  "Sort Ascending": "Sort Ascending",
+  "Sort Descending": "Sort Descending",
+  "Remove Sort": "Remove Sort",
+  "Hide Column": "Hide Column",
+  "Clear": "Clear",
+  "Refresh": "Refresh",
+  "Save States": "Save States",
+  "Load States": "Load States",
+  "Export File": "Export File",
+
+  "From": "From",
+  "To": "To",
+  "Apply": "Apply",
+  "Cancel": "Cancel",
+  "Today": "Today",
+  "Yesterday": "Yesterday",
+  "Choose a date range": "Choose a date range",
+  "Last 7 Days": "Last 7 Days",
+  "Last 30 Days": "Last 30 Days",
+  "This Month": "This Month",
+  "Last Month": "Last Month",
+  "This Week": "This Week",
+  "Last Week": "Last Week",
+
+  "Select a date": "Select a date",
+  "7 Days Ago": "7 Days Ago",
+  "Selected Date": "Selected Date",
+
+  "Create Date": "Create Date"
+}
