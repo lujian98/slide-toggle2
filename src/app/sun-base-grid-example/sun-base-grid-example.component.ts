@@ -4,9 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { DateAdapter } from '@angular/material';
 import { SunBaseGridComponent, SunField, SunSelectFieldType, SunMenuItem } from 'sunbird-seven-ui';
 import { SunBaseGridDataSource, SunGroupHeader, SunCellRendererService, SunCellEditService, SunColumnFilterService } from 'sunbird-seven-ui';
-import { SunLocaleService, SunDialogService } from 'sunbird-seven-ui';
+import { SunLocaleService } from 'sunbird-seven-ui';
 import { SunBaseGridExampleDataService } from './sun-base-grid-example-data.service';
-import { CustomRightMenuComponent, AppColumn } from './dialogs/custom-right-menu.component';
 import { Car } from './sun-base-grid-example.datasource';
 
 @Component({
@@ -26,7 +25,6 @@ export class SunBaseGridExampleComponent extends SunBaseGridComponent<Car> imple
     private translate: TranslateService,
     private localeService: SunLocaleService,
     private dateAdapter: DateAdapter<Date>,
-    private dialogService: SunDialogService
   ) {
     super();
     this.columnFilterService = columnFilterService;
@@ -294,26 +292,5 @@ export class SunBaseGridExampleComponent extends SunBaseGridComponent<Car> imple
   }
 
   onCustomRightMenuClick() {
-    const cols: AppColumn[] = this.columns.map(col => {
-      return {
-        field: col.field,
-        header: col.header,
-        hidden: col.hidden
-      };
-    });
-    const dialogconfig = {
-      context: { columns: cols },
-      closeOnBackdropClick: false,
-      backdropClass: 'cdk-overlay-dark-backdrop'
-    };
-    this.dialogService.open(CustomRightMenuComponent, dialogconfig).onClose.subscribe((columns: AppColumn[]) => {
-      if (columns) {
-        this.columns = this.columns.map((col, index) => {
-          col.hidden = columns[index].hidden;
-          return col;
-        });
-        this.gridStates.setStates();
-      }
-    });
   }
 }
