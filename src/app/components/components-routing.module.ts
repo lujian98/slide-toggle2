@@ -22,6 +22,10 @@ const routes: Route[] = [
         loadChildren: '../sun-base-grid-example/sun-base-grid-example.module#SunBaseGridExampleModule',
       },
       {
+        path: 'grid-demo',
+        // loadChildren: './grid-demo/grid-demo.module#GridDemoModule',
+      },
+      {
         path: 'tree',
         loadChildren: () => TreeModule
       }

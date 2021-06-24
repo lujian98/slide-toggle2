@@ -15,6 +15,10 @@ export class AppComponentComponent {
     {
       title: 'Grid Example',
       link: 'gridexample'
+    },
+    {
+      title: 'Grid Demo',
+      link: 'grid-demo'
     }
   ];
 }
