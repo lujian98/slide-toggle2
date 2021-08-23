@@ -1,0 +1,158 @@
+$min-cell-height: 20px;
+$spacing: 5px;
+$border-width: 1px;
+$item-font-size: 21px;
+
+.cdk-drag {
+  cursor: move;
+}
+
+.cdk-drag-preview {
+  opacity: 0.5;
+}
+
+.cdk-drag-placeholder {
+  display: none;
+}
+
+// Containers ====================
+
+.flex {
+  display: flex;
+  width: 1200px;
+  align-items: flex-start;
+  margin-top: 4 * $spacing;
+}
+
+.list {
+  flex-basis: 17%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 4 * $spacing;
+}
+
+.list2 {
+  flex-basis: 17%;
+  display: flex;
+  flex-direction: column;
+  // padding-left: 4 * $spacing;
+}
+
+.grid-container {
+  flex-basis: 66%;
+  overflow: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  // grid-template-columns: 100px 1.2fr 100px 1.2fr 1.2fr;
+  grid-row-gap: 1 * $spacing;
+}
+
+// Cells =========================
+
+.orig-assign-cell {
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  padding: $spacing;
+  font-size: $item-font-size;
+  color: blue;
+}
+
+.new-assign-cell {
+  grid-column: 2;
+  display: block;
+  // margin-right: 2 * $spacing;
+}
+
+.status {
+  grid-column: 3;
+  display: block;
+  text-align: center;
+  // margin-right: 2 * $spacing;
+}
+
+.avail-cell {
+  // min-height: $min-cell-height;
+  grid-column: 4;
+  grid-row-start: 2;
+  display: block;
+  overflow: auto;
+}
+
+.avail-cell2 {
+  // min-height: $min-cell-height;
+  grid-column: 5;
+  grid-row-start: 2;
+  display: block;
+  overflow: auto;
+}
+
+// Headers =======================
+
+.hdr {
+  border-bottom-style: solid;
+  border-bottom-width: $border-width;
+  border-top-style: solid;
+  border-top-width: $border-width;
+  font-weight: bold;
+  padding: $spacing;
+}
+
+.avail-hdr {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.avail-hdr2 {
+  grid-column: 5;
+  grid-row: 1;
+}
+
+.orig-assign-hdr {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.new-assign-hdr {
+  grid-column: 2;
+  grid-row: 1;
+  // margin-right: 2 * $spacing;
+}
+
+.status-hdr {
+  grid-column: 3;
+  grid-row: 1;
+  text-align: center;
+}
+
+// Draggable Items ===============
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: $spacing;
+  background-color: white;
+}
+
+.avail-item {
+  // min-height: $min-cell-height;
+  border-style: solid;
+  border-width: 1px;
+  font-size: $item-font-size;
+}
+
+.new-assign-item {
+  // min-height: $min-cell-height;
+  font-weight: bold;
+  font-size: $item-font-size;
+  color: red;
+}
+
+.placeholder {
+  // min-height: $min-cell-height - (2 * $border-width);
+  border-style: dashed;
+  border-width: $border-width;
+}

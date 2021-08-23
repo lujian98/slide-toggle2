@@ -1,31 +1,12 @@
-<sun-layout>
-  <sun-layout-header>
-    <sun-navbar primaryLogo="/assets/logo.png" [menuItems]="menu" secondaryLogo="/assets/logo.png" [menuItemTpl]="menuItemTpl">
-      <ng-template #menuItemTpl let-item>
-        {{ item.title }}
-      </ng-template>
-      <sun-search (queryString) = 'logQuery($event)'(pastedQueryString) = 'onPaste($event)' (helpClicked)='helpClicked()' placeholder="Search..." [results]="results$ | async" [itemTpl]="itemTpl" noMatchesText="No matches found." needHelpIcon = "needHelpIcon"></sun-search>
-      <ng-template #itemTpl let-item>
-        <a href="/">{{ item.result }}</a>
-      </ng-template>
+<!--
 
-      <sun-dropdown>
-        <button sun-navbar-item icon="question-circle">Help</button>
-      </sun-dropdown>
-      <sun-dropdown>
-        <button sun-navbar-item icon="user">
-          Admin
-          <sun-icon icon="angle-down"></sun-icon>
-        </button>
-        <sun-dropdown-menu xPosition="right">
-          <a sun-dropdown-item>Test</a>
-          <a sun-dropdown-item>Porta Magna Consectetur</a>
-          <a sun-dropdown-item (click)="toggleTheme()">Toggle Theme</a>
-          <div class="sun-dropdown-divider"></div>
-          <a sun-dropdown-item>Logoff</a>
-        </sun-dropdown-menu>
-      </sun-dropdown>
-    </sun-navbar>
-  </sun-layout-header>
-  <router-outlet></router-outlet>
-</sun-layout>
+  <app-remapping
+  [initialMapping]="initialMapping"
+  (mapping)="updateMapping($event)"
+></app-remapping>
+
+<cdk-drag-drop-connected-sorting-example></cdk-drag-drop-connected-sorting-example>
+
+-->
+<app-css-grid></app-css-grid>
+

@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
-import { SunSearchService, SunThemeService } from 'sunbird-seven-ui';
-import { AppService } from './app.service';
-
-import { MENU_ITEMS } from './app-menu';
+import { Mapping } from './types';
 
 @Component({
   selector: 'app-root',
@@ -13,35 +8,23 @@ import { MENU_ITEMS } from './app-menu';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  menu = MENU_ITEMS;
-  results$: Observable<String[]>;
-  needHelpIcon = true;
+  newMapping: Mapping = {};
+  initialMapping: Mapping = {
+    Door: null,
+    Handle: 'Contact Handle 1',
+    Lock: null
+  };
+
 
   constructor(
-    private appService: AppService,
-    private searchService: SunSearchService,
-    private themeService: SunThemeService
   ) {}
 
   ngOnInit() {
-    this.results$ = this.searchService
-      .onSearchSubmit()
-      .pipe(switchMap((query: string) => this.appService.search(query)));
   }
 
-  logQuery($event) {
-    console.log($event);
+
+  updateMapping(mapping: Mapping) {
+    this.newMapping = mapping;
   }
 
-  helpClicked() {
-    console.log('Implementation example');
-  }
-
-  toggleTheme() {
-    this.themeService.changeTheme(this.themeService.currentTheme === 'light' ? 'dark' : 'light');
-  }
-
-  onPaste($event) {
-    console.log($event);
-  }
 }
