@@ -60,6 +60,7 @@ export class CssGridComponent implements OnInit {
 
   connectDropsites() {
     const mapIds = this.sensorMapList.map((v) => v.length > 0 ? v[0].id : null);
+    console.log(' mapIds=', mapIds);
     this.availableSensors = this.availableSensors.filter((data) => {
       return mapIds.filter((id) => id && id === data.id).length === 0;
     });
@@ -79,6 +80,8 @@ export class CssGridComponent implements OnInit {
 
     console.log(`sensorDropConnections=`, this.sensorDropConnections)
     console.log(`availableConnections=`, this.availableConnections)
+    this.mappingPlaceholder = this.sensorMapList.map((v) => v.length === 0);
+
     console.log(`mappingPlaceholder=`, this.mappingPlaceholder)
   }
 
@@ -96,6 +99,7 @@ export class CssGridComponent implements OnInit {
       [{ id: '12', key: 'Handle', name: 'Contact Handle2' }],
       []
     ];
+
     this.availableSensors = [
       { id: '12', key: "Door", name: "Contact Handle2" },
       { id: '13', key: "Handle", name: "Handle" },
@@ -103,7 +107,6 @@ export class CssGridComponent implements OnInit {
       { id: '15', key: "E", name: "E" },
       { id: '16', key: "F", name: "F" }
     ];
-    this.mappingPlaceholder = this.sensorMapList.map((v) => v.length === 0);
   }
 
 
@@ -118,33 +121,49 @@ export class CssGridComponent implements OnInit {
     console.log(' dropped=', event)
     this.isDragStat = false;
     if (event.previousContainer === event.container) {
+      console.log(' 111111111111111 dropped=', event)
+/*
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+      */
     } else {
+      console.log(' 22222222222 dropped=', event)
+      console.log(' event.previousContainer.data=', event.previousContainer.data)
+      console.log(' event.container.data=', event.container.data)
+      console.log('event.previousIndex=', event.previousIndex)
+      console.log(' event.currentIndex=', event.currentIndex)
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
-      this.mappingPlaceholder[idx] = false;
       this.connectDropsites();
       // this.emitMapping();
     }
   }
 
 
-  setMapPlaceholder(idx: number, show: boolean) {
+  setMapPlaceholder(event, idx: number, show: boolean) {
 
     // this.mappingPlaceholder[idx] = show;
-    console.log(`mappingPlaceholder=`, this.mappingPlaceholder)
+    console.log(`mappingPlaceholder=`, event)
   }
 
-  cdkDragMoved() {
-    console.log('drag move')
+  cdkDropListEnterPredicate(mappedItem) {
+    // console.log(' qqqqqqqqqqq cdkDropListEnterPredicate=', mappedItem)
+    return (drag: CdkDrag<number>): boolean => {
+     //  console.log(' qqqqqqqqqqq drag=', drag)
+
+      return true;
+    };
+  }
+
+  cdkDragMoved(event) {
+    console.log('drag move =', event)
     this.isDragStat = true;
     // this.mappingPlaceholder[0] = false;
   }

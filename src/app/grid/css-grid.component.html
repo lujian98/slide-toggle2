@@ -10,14 +10,15 @@
 
     <div class="grid-header sensor-mapping-header">Sensor Mapping</div>
     <div cdkDropList
-      *ngFor="let item of sensorMapKeys; index as i"
+      *ngFor="let mappedItem of sensorMapList; index as i"
       #sensorMapDropList="cdkDropList"
-      [cdkDropListData]="sensorMapList[i]"
+      [cdkDropListData]="mappedItem"
       [cdkDropListConnectedTo]="sensorDropConnections[i]"
+      [cdkDropListEnterPredicate]="cdkDropListEnterPredicate(mappedItem)"
       (cdkDropListDropped)="cdkDragDrop($event, i)"
-      (cdkDropListEntered)="setMapPlaceholder(i, false)"
-      (cdkDropListExited)="setMapPlaceholder(i, true)"
-      (CdkDragMove)="cdkDragMove()"
+      (cdkDropListEntered)="setMapPlaceholder($event, i, false)"
+      (cdkDropListExited)="setMapPlaceholder($event, i, true)"
+      (CdkDragMove)="cdkDragMove($event)"
       [style.grid-row]="i + 2"
       class="sensor-mapping-cell">
 
@@ -54,7 +55,7 @@
     [cdkDropListData]="availableSensors"
     [cdkDropListConnectedTo]="availableConnections"
     cdkDropListSortingDisabled
-    (cdkDropListDropped)="cdkDropListDropped()"
+    (cdkDropListDropped)="cdkDragDrop($event)"
     class="available-list-cell">
     <div *ngFor="let item of availableSensors"
       cdkDrag
