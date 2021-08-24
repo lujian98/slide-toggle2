@@ -42,7 +42,7 @@ export class CssGridComponent implements OnInit {
     { key: "Lock", label: "Lock" }
   ];
   availableSensors: SensorMapItem[] = [];
-  sensorMapList: SensorMapItem[][];
+  sensorMapList: SensorMapItem[];
 
   sensorDropConnections: CdkDropList<SensorMapItem>[][] = [];
   availableConnections: CdkDropList<SensorMapItem>[] = [];
@@ -59,16 +59,16 @@ export class CssGridComponent implements OnInit {
   }
 
   connectDropsites() {
-    const mapIds = this.sensorMapList.map((v) => v.length > 0 ? v[0].id : null);
+    const mapIds = this.sensorMapList.map((v) => v ? v.id : null);
     console.log(' mapIds=', mapIds);
     this.availableSensors = this.availableSensors.filter((data) => {
       return mapIds.filter((id) => id && id === data.id).length === 0;
     });
 
     const naArr = this.sensorMapDropList.toArray();
-    this.availableConnections = naArr.filter((_na, idx) => this.sensorMapList[idx].length === 0);
+    this.availableConnections = naArr.filter((_na, idx) => !this.sensorMapList[idx]);
     this.sensorDropConnections = naArr.map((_cd, idx) => {
-      const conns = naArr.filter((_na, naIdx) => naIdx !== idx && this.sensorMapList[naIdx].length === 0);
+      const conns = naArr.filter((_na, naIdx) => naIdx !== idx && !this.sensorMapList[naIdx]);
       conns.push(this.availableDropList);
       return conns;
     });
@@ -80,7 +80,7 @@ export class CssGridComponent implements OnInit {
 
     console.log(`sensorDropConnections=`, this.sensorDropConnections)
     console.log(`availableConnections=`, this.availableConnections)
-    this.mappingPlaceholder = this.sensorMapList.map((v) => v.length === 0);
+    this.mappingPlaceholder = this.sensorMapList.map((v) => !v);
 
     console.log(`mappingPlaceholder=`, this.mappingPlaceholder)
   }
@@ -95,9 +95,9 @@ export class CssGridComponent implements OnInit {
 
   initProps() {
     this.sensorMapList = [
-      [],
-      [{ id: '12', key: 'Handle', name: 'Contact Handle2' }],
-      []
+      null,
+      { id: '12', key: 'Handle', name: 'Contact Handle2' },
+      null
     ];
 
     this.availableSensors = [
@@ -122,25 +122,28 @@ export class CssGridComponent implements OnInit {
     this.isDragStat = false;
     if (event.previousContainer === event.container) {
       console.log(' 111111111111111 dropped=', event)
-/*
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-      */
+      /*
+            moveItemInArray(
+              event.container.data,
+              event.previousIndex,
+              event.currentIndex
+            );
+            */
     } else {
       console.log(' 22222222222 dropped=', event)
       console.log(' event.previousContainer.data=', event.previousContainer.data)
       console.log(' event.container.data=', event.container.data)
       console.log('event.previousIndex=', event.previousIndex)
       console.log(' event.currentIndex=', event.currentIndex)
+
+      /*
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
-      );
+      ); */
+      this.sensorMapList[idx] = event.item.data;
       this.connectDropsites();
       // this.emitMapping();
     }
@@ -156,7 +159,7 @@ export class CssGridComponent implements OnInit {
   cdkDropListEnterPredicate(mappedItem) {
     // console.log(' qqqqqqqqqqq cdkDropListEnterPredicate=', mappedItem)
     return (drag: CdkDrag<number>): boolean => {
-     //  console.log(' qqqqqqqqqqq drag=', drag)
+      //  console.log(' qqqqqqqqqqq drag=', drag)
 
       return true;
     };

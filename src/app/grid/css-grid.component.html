@@ -22,13 +22,13 @@
       [style.grid-row]="i + 2"
       class="sensor-mapping-cell">
 
-      <div *ngFor="let newAssignment of sensorMapList[i]"
+      <div *ngIf="mappedItem"
         cdkDrag
-        [cdkDragData]="newAssignment"
+        [cdkDragData]="mappedItem"
         (CdkDragMove)="cdkDragMove()"
         class="sensor-mapping-item"
         [ngClass]="isDragStat ? 'sensor-mapping-drag' : ''">
-          {{newAssignment.name}}
+          {{mappedItem.name}}
           <div *cdkDragPlaceholder style="display: none"></div>
       </div>
       <div *ngIf="mappingPlaceholder[i]"
