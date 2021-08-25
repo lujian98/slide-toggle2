@@ -1,14 +1,10 @@
-
-  <div class="sensor-mapping-grid">
-
     <div class="grid-header sensor-mapping-type-header"> </div>
     <div *ngFor="let type of sensorMapKeys; index as i"
-      class="sensor-mapping-type"
       [style.grid-row]="i + 2">
       {{type.label}}
     </div>
 
-    <div class="grid-header sensor-mapping-header">Sensor Mapping</div>
+    <div class="grid-header">Sensor Mapping</div>
     <div cdkDropList
       *ngFor="let mappedItem of sensorMapList; index as i"
       #sensorMapDropList="cdkDropList"
@@ -19,7 +15,7 @@
       (cdkDropListExited)="setMapPlaceholder($event, i, true)"
       [attr.sensor-map-key]="sensorMapKeys[i].key"
       [style.grid-row]="i + 2"
-      class="sensor-mapping-cell drag-drop-over">
+      class="drag-drop-over">
 
       <div *ngIf="mappedItem"
         cdkDrag
@@ -59,21 +55,16 @@
         [cdkDragData]="item"
         (cdkDragMoved)="cdkDragMoved($event)"
         [attr.sensor-map-key]="item.id"
-        class="available-item drag-drop-over">
+        class="drag-drop-over">
         {{item.name}}
         <div *cdkDragPlaceholder style="display: none"></div>
       </div>
 
     </div>
 
-
-    <div class="grid-header available-link-header">PDU</div>
+    <div class="grid-header">PDU</div>
     <div *ngFor="let item of availableSensors; index as i"
       class="available-link-cell"
       [style.grid-row]="i + 2">
       {{item.name}}
     </div>
-
-  </div>
-
-
