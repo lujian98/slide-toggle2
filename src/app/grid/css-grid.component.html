@@ -1,4 +1,4 @@
-<div class="sensor-mapping-container">
+
   <div class="sensor-mapping-grid">
 
     <div class="grid-header sensor-mapping-type-header"> </div>
@@ -13,7 +13,6 @@
       *ngFor="let mappedItem of sensorMapList; index as i"
       #sensorMapDropList="cdkDropList"
       [cdkDropListData]="mappedItem"
-
       [cdkDropListEnterPredicate]="cdkDropListEnterPredicate(mappedItem)"
       (cdkDropListDropped)="cdkDragDrop($event, i)"
       (cdkDropListEntered)="setMapPlaceholder($event, i, false)"
@@ -45,40 +44,36 @@
       {{status.label}}X
     </div>
 
-  </div>
-</div>
+    <div class="grid-header available-list-header">Available Sensors</div>
 
-<!--
-        [cdkDropListConnectedTo]="sensorDropConnections[i]"
-      [cdkDropListConnectedTo]="availableConnections"
--->
-<div class="available-list">
-  <div class="grid-header available-list-header">Available Sensors</div>
-  <div cdkDropList
-    #availableDropList="cdkDropList"
-    [cdkDropListData]="availableSensors"
-
-    cdkDropListSortingDisabled
-    (cdkDropListDropped)="cdkDragDrop($event)"
-    class="available-list-cell">
-    <div *ngFor="let item of availableSensors"
-      cdkDrag
-      [cdkDragData]="item"
-      (cdkDragMoved)="cdkDragMoved($event)"
-      (cdkDragEnded)="cdkDragEnded()"
+    <div cdkDropList
+      *ngFor="let item of availableSensors; index as i"
+      #availableDropList="cdkDropList"
+      [cdkDropListData]="item"
+      cdkDropListSortingDisabled
+      (cdkDropListDropped)="cdkDragDrop($event)"
       [attr.sensor-map-key]="item.id"
-      class="available-item drag-drop-over">
+      [style.grid-row]="i + 2"
+      class="available-list-cell">
+      <div cdkDrag
+        [cdkDragData]="item"
+        (cdkDragMoved)="cdkDragMoved($event)"
+        [attr.sensor-map-key]="item.id"
+        class="available-item drag-drop-over">
         {{item.name}}
         <div *cdkDragPlaceholder style="display: none"></div>
-    </div>
-  </div>
-</div>
+      </div>
 
-<div class="available-link">
-  <div class="grid-header available-link-header">PDU</div>
-  <div class="available-link-cell">
-    <div *ngFor="let item of availableSensors" class="available-item">
+    </div>
+
+
+    <div class="grid-header available-link-header">PDU</div>
+    <div *ngFor="let item of availableSensors; index as i"
+      class="available-link-cell"
+      [style.grid-row]="i + 2">
       {{item.name}}
     </div>
+
   </div>
-</div>
+
+
