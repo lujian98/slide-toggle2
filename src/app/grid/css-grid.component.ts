@@ -4,11 +4,13 @@ import {
   QueryList,
   AfterViewInit,
   ViewChild,
+  Inject,
   Input,
   Output,
   EventEmitter,
   OnInit,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import {
   CdkDragDrop,
@@ -52,6 +54,8 @@ export class CssGridComponent implements OnInit {
 
   @ViewChildren('sensorMapDropList') sensorMapDropList: QueryList<CdkDropList<SensorMapItem>>;
   @ViewChild('availableDropList', { static: true }) availableDropList: CdkDropList<SensorMapItem>;
+
+  constructor(@Inject(DOCUMENT) private document) {}
 
   ngOnInit() {
     this.initProps();
@@ -168,7 +172,20 @@ export class CssGridComponent implements OnInit {
   cdkDragMoved(event) {
     console.log('drag move =', event)
     this.isDragStat = true;
-    // this.mappingPlaceholder[0] = false;
+    const e = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y);
+    if (!e) {
+      // this.clearDragInfo();
+      return;
+    }
+    const container = e.classList.contains('drag-drop-over') ? e : e.closest('.drag-drop-over');
+    if (!container) {
+      // this.clearDragInfo();
+      return;
+    }
+    console.log(' container=', container)
+    const targetId = container.getAttribute('sensor-map-key');
+    console.log(' targetId=', targetId)
+
   }
 
   cdkDragEnded() {

@@ -13,19 +13,19 @@
       *ngFor="let mappedItem of sensorMapList; index as i"
       #sensorMapDropList="cdkDropList"
       [cdkDropListData]="mappedItem"
-      [cdkDropListConnectedTo]="sensorDropConnections[i]"
+
       [cdkDropListEnterPredicate]="cdkDropListEnterPredicate(mappedItem)"
       (cdkDropListDropped)="cdkDragDrop($event, i)"
       (cdkDropListEntered)="setMapPlaceholder($event, i, false)"
       (cdkDropListExited)="setMapPlaceholder($event, i, true)"
-      (CdkDragMove)="cdkDragMove($event)"
+      [attr.sensor-map-key]="sensorMapKeys[i].key"
       [style.grid-row]="i + 2"
-      class="sensor-mapping-cell">
+      class="sensor-mapping-cell drag-drop-over">
 
       <div *ngIf="mappedItem"
         cdkDrag
         [cdkDragData]="mappedItem"
-        (CdkDragMove)="cdkDragMove()"
+        (cdkDragMoved)="cdkDragMoved($event)"
         class="sensor-mapping-item"
         [ngClass]="isDragStat ? 'sensor-mapping-drag' : ''">
           {{mappedItem.name}}
@@ -48,21 +48,26 @@
   </div>
 </div>
 
+<!--
+        [cdkDropListConnectedTo]="sensorDropConnections[i]"
+      [cdkDropListConnectedTo]="availableConnections"
+-->
 <div class="available-list">
   <div class="grid-header available-list-header">Available Sensors</div>
   <div cdkDropList
     #availableDropList="cdkDropList"
     [cdkDropListData]="availableSensors"
-    [cdkDropListConnectedTo]="availableConnections"
+
     cdkDropListSortingDisabled
     (cdkDropListDropped)="cdkDragDrop($event)"
     class="available-list-cell">
     <div *ngFor="let item of availableSensors"
       cdkDrag
       [cdkDragData]="item"
-      (cdkDragMoved)="cdkDragMoved()"
+      (cdkDragMoved)="cdkDragMoved($event)"
       (cdkDragEnded)="cdkDragEnded()"
-      class="available-item">
+      [attr.sensor-map-key]="item.id"
+      class="available-item drag-drop-over">
         {{item.name}}
         <div *cdkDragPlaceholder style="display: none"></div>
     </div>
