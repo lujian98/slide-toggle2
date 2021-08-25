@@ -26,35 +26,34 @@
     border-top-width: 1px;
   }
 
+  .sensor-mapping-item {
+    font-weight: bold;
+    color: red;
+  }
 
-      .sensor-mapping-item {
-        font-weight: bold;
-        color: red;
-      }
+  .sensor-mapping-drag {
+    background-color: lightgreen;
+  }
 
-      .sensor-mapping-drag {
-        background-color: lightgreen;
-      }
+  .sensor-mapping-status-header {
+    text-align: center;
+  }
 
-    .sensor-mapping-status-header {
-      text-align: center;
-    }
+  .sensor-mapping-status {
+    text-align: center;
+  }
 
-    .sensor-mapping-status {
-      text-align: center;
-    }
+  .available-list-header {
+    margin-left: 20px;
+    text-align: center;
+  }
 
-    .available-list-header {
-      margin-left: 20px;
-      text-align: center;
-    }
+  .available-list-cell {
+    grid-column: 4;
+    margin-left: 20px;
+  }
 
-    .available-list-cell {
-      grid-column: 4;
-      margin-left: 20px;
-    }
-
-    .available-link-cell {
-      grid-column: 5;
-    }
+  .available-link-cell {
+    grid-column: 5;
+  }
 }

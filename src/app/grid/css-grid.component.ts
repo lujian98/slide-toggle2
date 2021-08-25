@@ -14,11 +14,6 @@ import { DOCUMENT } from '@angular/common';
 
 import {
   CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-  CdkDragStart, CdkDrag,
-  CdkDropList,
-  // CdkDrop,
 } from '@angular/cdk/drag-drop';
 
 export interface SensorMapKey {
@@ -29,7 +24,9 @@ export interface SensorMapKey {
 export interface SensorMapItem {
   id: string;
   name: string;
-  key: string;
+  type: string;
+  status: string;
+  pdu: string;
 }
 
 @Component({
@@ -45,160 +42,81 @@ export class CssGridComponent implements OnInit {
   ];
   availableSensors: SensorMapItem[] = [];
   sensorMapList: SensorMapItem[];
-
-  sensorDropConnections: CdkDropList<SensorMapItem>[][] = [];
-  availableConnections: CdkDropList<SensorMapItem>[] = [];
   mappingPlaceholder: boolean[] = [];
 
+  sensorMapIndex: string;
+  mappedOverRemove: string;
   isDragStat = false;
 
-  @ViewChildren('sensorMapDropList') sensorMapDropList: QueryList<CdkDropList<SensorMapItem>>;
-  @ViewChild('availableDropList', { static: true }) availableDropList: CdkDropList<SensorMapItem>;
+  constructor(@Inject(DOCUMENT) private document) { }
 
-  constructor(@Inject(DOCUMENT) private document) {}
+  initData() {
+    this.sensorMapList = [
+      null,
+      { id: '12', type: 'Contact', name: 'Contact Handle2', status: 'closed', pdu: '192.168.1.12'  },
+      null
+    ];
 
-  ngOnInit() {
-    this.initProps();
-    this.emitMapping();
+    this.availableSensors = [
+      // { id: '12', type: "Contact", name: "Contact Handle2", status: 'closed', pdu: '192.168.1.12' },
+      { id: '13', type: "Handle", name: "Handle", status: 'open', pdu: '192.168.1.13' },
+      { id: '14', type: "Lock", name: "Lock", status: 'locked', pdu: '192.168.1.14' },
+      { id: '15', type: "Temperature", name: "E", status: 'closed', pdu: '192.168.1.15' },
+      { id: '16', type: "Door", name: "F", status: 'closed', pdu: '192.168.1.16' }
+    ];
   }
 
-  connectDropsites() {
+  ngOnInit() {
+    this.initData();
+    this.setPlaceHolders()
+  }
+
+  private setPlaceHolders() {
     const mapIds = this.sensorMapList.map((v) => v ? v.id : null);
-    console.log(' mapIds=', mapIds);
     this.availableSensors = this.availableSensors.filter((data) => {
       return mapIds.filter((id) => id && id === data.id).length === 0;
     });
-
-    const naArr = this.sensorMapDropList.toArray();
-    this.availableConnections = naArr.filter((_na, idx) => !this.sensorMapList[idx]);
-    this.sensorDropConnections = naArr.map((_cd, idx) => {
-      const conns = naArr.filter((_na, naIdx) => naIdx !== idx && !this.sensorMapList[naIdx]);
-      conns.push(this.availableDropList);
-      return conns;
-    });
-
-    console.log(`sensorMapKeys=`, this.sensorMapKeys)
-    console.log(`sensorMapList=`, this.sensorMapList)
-    // console.log( ' newMapping xxx= ', this.newMapping)
-    console.log(`available=`, this.availableSensors)
-
-    console.log(`sensorDropConnections=`, this.sensorDropConnections)
-    console.log(`availableConnections=`, this.availableConnections)
     this.mappingPlaceholder = this.sensorMapList.map((v) => !v);
-
-    console.log(`mappingPlaceholder=`, this.mappingPlaceholder)
   }
 
-  emitMapping() {
+  cdkDragMoved(event) {
+    this.sensorMapIndex = null;
+    this.mappedOverRemove = null;
+    this.isDragStat = true;
+    const e = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y);
+    if (!e) {
+      return;
+    }
+    const container = e.classList.contains('drag-drop-over') ? e : e.closest('.drag-drop-over');
+    if (!container) {
+      return;
+    }
+    this.sensorMapIndex = container.getAttribute('sensor-map-index');
+    this.mappedOverRemove = container.getAttribute('sensor-map-remove');
+  }
+
+  cdkDragDrop(event: CdkDragDrop<SensorMapItem[]>, type: string) {
+    this.isDragStat = false;
+    if (type === 'add' && this.sensorMapIndex !== null) {
+      if (this.sensorMapList[this.sensorMapIndex]) {
+        this.availableSensors.push(this.sensorMapList[this.sensorMapIndex]);
+      }
+      this.sensorMapList[this.sensorMapIndex] = event.item.data;
+    } else if (type === 'remove' && this.mappedOverRemove !== null) {
+      const findIndex = this.sensorMapList.findIndex((data) => data && data.id === event.item.data.id);
+      if (findIndex !== -1) {
+        this.availableSensors.push(this.sensorMapList[findIndex]);
+        this.sensorMapList[findIndex] = null;
+      }
+    }
+    this.setPlaceHolders();
+  }
+
+  emitMapping() { // TODO for save data
     // const mapping: Mapping = {};
     this.sensorMapList.forEach((v, idx) => {
       // mapping[this.sensorMapKeys[idx].key] = (v.length > 0) ? v[0].key : null;
     });
     // this.mapping.emit(mapping);
   }
-
-  initProps() {
-    this.sensorMapList = [
-      null,
-      { id: '12', key: 'Handle', name: 'Contact Handle2' },
-      null
-    ];
-
-    this.availableSensors = [
-      { id: '12', key: "Door", name: "Contact Handle2" },
-      { id: '13', key: "Handle", name: "Handle" },
-      { id: '14', key: "Lock", name: "Lock" },
-      { id: '15', key: "E", name: "E" },
-      { id: '16', key: "F", name: "F" }
-    ];
-  }
-
-
-  ngAfterViewInit() {
-    // Change template data bindings after current event loop tick as per
-    // https://angular.io/guide/component-interaction#parent-calls-an-viewchild
-    setTimeout(() => this.connectDropsites());
-  }
-
-
-  cdkDragDrop(event: CdkDragDrop<SensorMapItem[]>, idx: number) {
-    console.log(' dropped=', event)
-    this.isDragStat = false;
-    if (event.previousContainer === event.container) {
-      console.log(' 111111111111111 dropped=', event)
-      /*
-            moveItemInArray(
-              event.container.data,
-              event.previousIndex,
-              event.currentIndex
-            );
-            */
-    } else {
-      console.log(' 22222222222 dropped=', event)
-      console.log(' event.previousContainer.data=', event.previousContainer.data)
-      console.log(' event.container.data=', event.container.data)
-      console.log('event.previousIndex=', event.previousIndex)
-      console.log(' event.currentIndex=', event.currentIndex)
-
-      /*
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      ); */
-      this.sensorMapList[idx] = event.item.data;
-      this.connectDropsites();
-      // this.emitMapping();
-    }
-  }
-
-
-  setMapPlaceholder(event, idx: number, show: boolean) {
-
-    // this.mappingPlaceholder[idx] = show;
-    console.log(`mappingPlaceholder=`, event)
-  }
-
-  cdkDropListEnterPredicate(mappedItem) {
-    // console.log(' qqqqqqqqqqq cdkDropListEnterPredicate=', mappedItem)
-    return (drag: CdkDrag<number>): boolean => {
-      //  console.log(' qqqqqqqqqqq drag=', drag)
-
-      return true;
-    };
-  }
-
-  cdkDragMoved(event) {
-    console.log('drag move =', event)
-    this.isDragStat = true;
-    const e = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y);
-    if (!e) {
-      // this.clearDragInfo();
-      return;
-    }
-    const container = e.classList.contains('drag-drop-over') ? e : e.closest('.drag-drop-over');
-    if (!container) {
-      // this.clearDragInfo();
-      return;
-    }
-    console.log(' container=', container)
-    const targetId = container.getAttribute('sensor-map-key');
-    console.log(' targetId=', targetId)
-
-  }
-
-  cdkDragEnded() {
-    console.log('cdkDragExited not working')
-    this.isDragStat = false;
-  }
-
-  cdkDropListDropped() {
-    // this.isDragStat = false;
-  }
-
-  CdkDragEnter() {
-    console.log('drag enter')
-  }
-
 }
