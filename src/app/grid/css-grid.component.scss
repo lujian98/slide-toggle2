@@ -1,8 +1,6 @@
 
 :host {
-  display: grid;
-  grid-template-columns: 150px 1.2fr 150px 300px 150px;
-  grid-row-gap: 1 * 2px;
+  display: flex;
   width: 90%;
   margin-top: 20px;
 
@@ -14,11 +12,6 @@
     opacity: 0.75;
   }
 
-  .sensor-mapping-placeholder {
-    border-style: dashed;
-    border-width: 1px;
-  }
-
   .grid-header {
     border-bottom-style: solid;
     border-bottom-width: 1px;
@@ -26,39 +19,60 @@
     border-top-width: 1px;
   }
 
-  .sensor-mapping-item {
-    font-weight: bold;
-    color: red;
+  .grid-container {
+    flex-basis: 66%;
+    overflow: auto;
   }
 
-  .sensor-mapping-drag {
-    background-color: lightgreen;
+  .grid {
+    display: grid;
+    grid-template-columns: 150px 1.2fr 150px;
+    grid-row-gap: 1 * 2px;
+
+    .sensor-mapping-placeholder {
+      border-style: dashed;
+      border-width: 1px;
+    }
+
+
+    .sensor-mapping-item {
+      font-weight: bold;
+      color: red;
+    }
+
+    .sensor-mapping-drag {
+      background-color: lightgreen;
+    }
+
+    .sensor-mapping-status-header {
+      text-align: center;
+    }
+
+    .sensor-mapping-status {
+      text-align: center;
+    }
   }
 
-  .sensor-mapping-status-header {
-    text-align: center;
+  .available-list {
+    flex-basis: 20%;
+
+    .available-list-header {
+      margin-left: 20px;
+      text-align: center;
+    }
+
+    .available-list-cell {
+      margin-left: 20px;
+    }
+
+    .sensor-map-remove-placeholder {
+      height: 250px;
+      background-color: lime;
+    }
+
   }
 
-  .sensor-mapping-status {
-    text-align: center;
-  }
-
-  .available-list-header {
-    margin-left: 20px;
-    text-align: center;
-  }
-
-  .available-list-cell {
-    grid-column: 4;
-    margin-left: 20px;
-  }
-
-  .sensor-map-remove-placeholder {
-    grid-column: 4;
-    // height: 250px;
-  }
-
-  .available-link-cell {
-    grid-column: 5;
+  .available-link-list {
+    flex-basis: 20%;
   }
 }

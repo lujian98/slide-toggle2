@@ -1,66 +1,71 @@
-<div class="grid-header sensor-mapping-type-header"> </div>
-<div *ngFor="let type of sensorMapKeys; index as i"
-  [style.grid-row]="i + 2">
-  {{type.label}}
-</div>
+<div class="grid-container">
+  <div class="grid">
 
-<div class="grid-header">Sensor Mapping</div>
-<div cdkDropList *ngFor="let item of sensorMapList; index as i"
-  (cdkDropListDropped)="cdkDragDrop($event, 'remove')"
-  [attr.sensor-map-index]="i"
-  [style.grid-row]="i + 2"
-  class="drag-drop-over">
+    <div class="grid-header sensor-mapping-type-header"> </div>
+    <div *ngFor="let type of sensorMapKeys; index as i"
+      [style.grid-row]="i + 2">
+      {{type.label}}
+    </div>
 
-  <div *ngIf="item" cdkDrag
-    [cdkDragData]="item"
-    (cdkDragMoved)="cdkDragMoved($event, 'remove')"
-    class="sensor-mapping-item"
-    [ngClass]="isDragStat ? 'sensor-mapping-drag' : ''">
-    {{item.name}}
-    <div *cdkDragPlaceholder style="display: none"></div>
-  </div>
-  <div *ngIf="mappingPlaceholder[i]" class="sensor-mapping-placeholder"
-    [ngClass]="isDragStat ? 'sensor-mapping-drag' : ''">
-    Drag and drop here to assign
-  </div>
-</div>
+    <div class="grid-header">Sensor Mapping</div>
+    <div cdkDropList *ngFor="let item of sensorMapList; index as i"
+      (cdkDropListDropped)="cdkDragDrop($event, 'remove')"
+      [attr.sensor-map-index]="i"
+      [style.grid-row]="i + 2"
+      class="drag-drop-over">
 
-<div class="grid-header sensor-mapping-status-header">Status</div>
-<div *ngFor="let item of sensorMapList; index as i"
-  class="sensor-mapping-status"
-  [style.grid-row]="i + 2">
-  <div *ngIf="item">
-    {{item.status}}
-  </div>
-</div>
+      <div *ngIf="item" cdkDrag
+        [cdkDragData]="item"
+        (cdkDragMoved)="cdkDragMoved($event, 'remove')"
+        class="sensor-mapping-item"
+        [ngClass]="isDragStat ? 'sensor-mapping-drag' : ''">
+        {{item.name}}
+        <div *cdkDragPlaceholder style="display: none"></div>
+      </div>
+      <div *ngIf="mappingPlaceholder[i]" class="sensor-mapping-placeholder"
+        [ngClass]="isDragStat ? 'sensor-mapping-drag' : ''">
+        Drag and drop here to assign
+      </div>
+    </div>
 
-<div class="grid-header available-list-header">Available Sensors</div>
-
-<div cdkDropList [ngStyle]="{'display': dragType == 'remove' ? '' : 'none'}"
-  [style.grid-row]="2"
-  [attr.sensor-map-remove]="-1"
-  class="sensor-map-remove-placeholder drag-drop-over">
-  Drag and drop here to remove
-</div>
-
-
-<div cdkDropList *ngFor="let item of availableSensors; index as i"
-  (cdkDropListDropped)="cdkDragDrop($event, 'add')"
-  [style.grid-row]="i + 2"
-  class="available-list-cell">
-  <div cdkDrag *ngIf="dragType != 'remove'"
-    [cdkDragData]="item"
-    (cdkDragMoved)="cdkDragMoved($event, 'add')"
-    [attr.sensor-map-remove]="item.id"
-    class="drag-drop-over">
-    {{item.name}}
-    <div *cdkDragPlaceholder style="display: none"></div>
+    <div class="grid-header sensor-mapping-status-header">Status</div>
+    <div *ngFor="let item of sensorMapList; index as i"
+      class="sensor-mapping-status"
+      [style.grid-row]="i + 2">
+      <div *ngIf="item">
+        {{item.status}}
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="grid-header">PDU</div>
-<div *ngFor="let item of availableSensors; index as i"
-  class="available-link-cell"
-  [style.grid-row]="i + 2">
-  {{item.pdu}}
+<div class="available-list">
+  <div class="grid-header available-list-header">Available Sensors</div>
+
+  <div cdkDropList [ngStyle]="{'display': dragType == 'remove' ? '' : 'none'}"
+    [attr.sensor-map-remove]="-1"
+    class="sensor-map-remove-placeholder drag-drop-over">
+    Drag and drop here to remove
+  </div>
+
+  <div cdkDropList *ngFor="let item of availableSensors; index as i"
+    (cdkDropListDropped)="cdkDragDrop($event, 'add')"
+    class="available-list-cell">
+    <div cdkDrag *ngIf="dragType != 'remove'"
+      [cdkDragData]="item"
+      (cdkDragMoved)="cdkDragMoved($event, 'add')"
+      [attr.sensor-map-remove]="item.id"
+      class="drag-drop-over">
+      {{item.name}}
+      <div *cdkDragPlaceholder style="display: none"></div>
+    </div>
+  </div>
+</div>
+
+<div class="available-link-list">
+  <div class="grid-header">PDU</div>
+  <div *ngFor="let item of availableSensors; index as i"
+    class="available-link-cell">
+    {{item.pdu}}
+  </div>
 </div>
