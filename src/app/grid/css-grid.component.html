@@ -1,7 +1,8 @@
 <div class="mapping-container">
   <div class="mapping-grid">
 
-    <div class="grid-header sensor-mapping-type-header"> </div>
+    <div class="grid-header sensor-mapping-type-header">
+    </div>
     <div *ngFor="let type of sensorMapKeys; index as i"
       [style.grid-row]="i + 2">
       {{type.key}}
@@ -12,19 +13,17 @@
       (cdkDropListDropped)="cdkDragDrop($event, 'remove')"
       [attr.sensor-map-index]="i"
       [style.grid-row]="i + 2"
-      class="drag-drop-over">
+      class="drag-drop-over" [ngClass]="dragSensorMappClass(i)">
 
       <div *ngIf="item" cdkDrag
         [cdkDragData]="item"
         (cdkDragMoved)="cdkDragMoved($event, 'remove')"
-        class="sensor-mapping-item"
-        [ngClass]="dragSensorMappClass(i)">
-        {{item.name}}
+        class="sensor-mapping-item">
+        <i class="fa fa-bars"> </i>{{item.name}}
         <div *cdkDragPlaceholder style="display: none"></div>
       </div>
-      <div *ngIf="mappingPlaceholder[i]" class="sensor-mapping-placeholder"
-        [ngClass]="dragSensorMappClass(i)">
-        Drag and drop here to assign
+      <div *ngIf="mappingPlaceholder[i]" class="sensor-mapping-placeholder">
+        Drag and drop here to mapping
       </div>
     </div>
 
@@ -56,7 +55,7 @@
       (cdkDragStarted)="cdkDragStart(item)"
       (cdkDragMoved)="cdkDragMoved($event, 'add')"
       [attr.sensor-map-remove]="item.id">
-      {{item.name}}
+      <i class="fa fa-bars"> </i>{{item.name}}
       <div *cdkDragPlaceholder style="display: none"></div>
     </div>
   </div>

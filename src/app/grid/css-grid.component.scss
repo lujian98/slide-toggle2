@@ -1,7 +1,7 @@
 
 :host {
   display: flex;
-  width: 650px;
+  width: 675px;
   margin-top: 20px;
 
   .cdk-drag {
@@ -25,19 +25,29 @@
     .mapping-grid {
       display: grid;
       grid-template-columns: 60px 1.2fr 60px;
-      grid-row-gap: 1 * 2px;
+      grid-row-gap: 1 * 4px;
 
-      .sensor-mapping-placeholder {
-        border-style: dashed;
+      .drag-drop-over {
+        // border-style: dashed;
         border-width: 1px;
+        background-color: gray;
+        // background-image: repeating-linear-gradient(180deg, #ccc, #ccc 4px, #dbdbdb 4px, #dbdbdb 8px);
       }
 
       .sensor-mapping-item {
+        margin: 3px 5px;
         font-weight: bold;
         color: red;
+        background-color: orange;
+        // background-image: repeating-linear-gradient(180deg, #ccc, #ccc 4px, #dbdbdb 4px, #dbdbdb 8px);
+      }
+
+      .sensor-mapping-placeholder {
+        margin: 3px 5px;
       }
 
       .sensor-mapping-droppable {
+        // background-image: repeating-linear-gradient(180deg, #ccc, #ccc 4px, #dbdbdb 4px, #dbdbdb 8px);
         background-color: lightgreen;
       }
 
@@ -59,7 +69,8 @@
     }
 
     .sensor-map-remove-placeholder {
-      height: 250px;
+      margin-left: 20px;
+      height: 250px; // TODO height flex?
       background-color: lime;
     }
   }

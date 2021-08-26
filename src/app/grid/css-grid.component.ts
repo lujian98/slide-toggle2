@@ -53,12 +53,16 @@ export class CssGridComponent implements OnInit {
   dragSensorMappClass(i: number): string {
     const key = this.sensorMapKeys[i].key;;
     if (this.droppable(key, this.dragedItem)) {
-      return i === this.sensorMapIndex ? 'sensor-mapping-dragover' : 'sensor-mapping-droppable';
+      // !this.sensorMapList[this.sensorMapIndex] &&
+      if(this.sensorMapIndex!== null && i === this.sensorMapIndex ) {
+        return 'sensor-mapping-dragover';
+      }
+      else return 'sensor-mapping-droppable';
     }
   }
 
   droppable(key: string, item: SensorMapItem): boolean {
-    if (item) {
+    if (item) { // TODO more droppable conditions
       return (item.type === 'Lock' && key === 'Lock') || (item.type !== 'Lock' && key !== 'Lock');
     }
   }
@@ -126,7 +130,10 @@ export class CssGridComponent implements OnInit {
       if (this.sensorMapList[this.sensorMapIndex]) {
         this.availableSensors.push(this.sensorMapList[this.sensorMapIndex]);
       }
+
       this.sensorMapList[this.sensorMapIndex] = event.item.data;
+
+
     } else if (type === 'remove' && this.mappedOverRemove !== null) {
       const findIndex = this.sensorMapList.findIndex((data) => data && data.id === event.item.data.id);
       if (findIndex !== -1) {
