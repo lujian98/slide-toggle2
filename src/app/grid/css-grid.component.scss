@@ -1,7 +1,7 @@
 
 :host {
   display: flex;
-  width: 90%;
+  width: 650px;
   margin-top: 20px;
 
   .cdk-drag {
@@ -19,49 +19,42 @@
     border-top-width: 1px;
   }
 
-  .grid-container {
-    flex-basis: 66%;
+  .mapping-container {
+    flex-basis: 55%;
     overflow: auto;
-  }
+    .mapping-grid {
+      display: grid;
+      grid-template-columns: 60px 1.2fr 60px;
+      grid-row-gap: 1 * 2px;
 
-  .grid {
-    display: grid;
-    grid-template-columns: 150px 1.2fr 150px;
-    grid-row-gap: 1 * 2px;
+      .sensor-mapping-placeholder {
+        border-style: dashed;
+        border-width: 1px;
+      }
 
-    .sensor-mapping-placeholder {
-      border-style: dashed;
-      border-width: 1px;
-    }
+      .sensor-mapping-item {
+        font-weight: bold;
+        color: red;
+      }
 
+      .sensor-mapping-droppable {
+        background-color: lightgreen;
+      }
 
-    .sensor-mapping-item {
-      font-weight: bold;
-      color: red;
-    }
+      .sensor-mapping-dragover {
+        background-color: blue;
+      }
 
-    .sensor-mapping-drag {
-      background-color: lightgreen;
-    }
-
-    .sensor-mapping-status-header {
-      text-align: center;
-    }
-
-    .sensor-mapping-status {
-      text-align: center;
+      .sensor-mapping-status-header, .sensor-mapping-status {
+        text-align: right;
+      }
     }
   }
 
   .available-list {
-    flex-basis: 20%;
+    flex-basis: 25%;
 
-    .available-list-header {
-      margin-left: 20px;
-      text-align: center;
-    }
-
-    .available-list-cell {
+    .available-list-header, .available-list-cell {
       margin-left: 20px;
     }
 
@@ -69,10 +62,12 @@
       height: 250px;
       background-color: lime;
     }
-
   }
 
   .available-link-list {
     flex-basis: 20%;
+    .pdu-header, .available-link-cell {
+      text-align: right;
+    }
   }
 }

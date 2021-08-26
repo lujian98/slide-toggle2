@@ -18,7 +18,6 @@ import {
 
 export interface SensorMapKey {
   key: string;
-  label: string;
 }
 
 export interface SensorMapItem {
@@ -36,25 +35,38 @@ export interface SensorMapItem {
 })
 export class CssGridComponent implements OnInit {
   sensorMapKeys: SensorMapKey[] = [
-    { key: "Door", label: "Door" },
-    { key: "Handle", label: "Handle" },
-    { key: "Lock", label: "Lock" }
+    { key: "Door" },
+    { key: "Handle" },
+    { key: "Lock" }
   ];
   availableSensors: SensorMapItem[] = [];
   sensorMapList: SensorMapItem[];
   mappingPlaceholder: boolean[] = [];
 
-  sensorMapIndex: string;
+  sensorMapIndex: number;
   mappedOverRemove: string;
-  isDragStat = false;
+  dragedItem: SensorMapItem;
   dragType: string;
 
   constructor(@Inject(DOCUMENT) private document) { }
 
+  dragSensorMappClass(i: number): string {
+    const key = this.sensorMapKeys[i].key;;
+    if (this.droppable(key, this.dragedItem)) {
+      return i === this.sensorMapIndex ? 'sensor-mapping-dragover' : 'sensor-mapping-droppable';
+    }
+  }
+
+  droppable(key: string, item: SensorMapItem): boolean {
+    if (item) {
+      return (item.type === 'Lock' && key === 'Lock') || (item.type !== 'Lock' && key !== 'Lock');
+    }
+  }
+
   initData() {
     this.sensorMapList = [
       null,
-      { id: '12', type: 'Contact', name: 'Contact Handle2', status: 'closed', pdu: '192.168.1.12'  },
+      { id: '12', type: 'Contact', name: 'Contact Handle2', status: 'closed', pdu: '192.168.1.12' },
       null
     ];
 
@@ -65,7 +77,7 @@ export class CssGridComponent implements OnInit {
       { id: '15', type: "Temperature", name: "E", status: 'closed', pdu: '192.168.1.15' },
       { id: '17', type: "Door", name: "Door1", status: 'closed', pdu: '192.168.1.17' },
       { id: '18', type: "Door", name: "Door2", status: 'closed', pdu: '192.168.1.18' },
-      { id: '19', type: "Door", name: "Door3", status: 'closed', pdu: '192.168.1.19' },
+      { id: '19', type: "Lock", name: "Lock2", status: 'closed', pdu: '192.168.1.19' },
       { id: '20', type: "Door", name: "Door4", status: 'closed', pdu: '192.168.1.20' },
       { id: '16', type: "Door", name: "Door5", status: 'closed', pdu: '192.168.1.16' },
     ];
@@ -84,27 +96,33 @@ export class CssGridComponent implements OnInit {
     this.mappingPlaceholder = this.sensorMapList.map((v) => !v);
   }
 
+  cdkDragStart(item) {
+    this.dragedItem = item;
+  }
+
   cdkDragMoved(event, type) {
     this.dragType = type;
     this.sensorMapIndex = null;
     this.mappedOverRemove = null;
-    this.isDragStat = true;
     const e = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y);
     if (!e) {
       return;
     }
-    const container = e.classList.contains('drag-drop-over') ? e : e.closest('.drag-drop-over');
-    if (!container) {
-      return;
+    const mapContainer = e.classList.contains('drag-drop-over') ? e : e.closest('.drag-drop-over');
+    if (mapContainer) {
+      this.sensorMapIndex = Number(mapContainer.getAttribute('sensor-map-index'));
     }
-    this.sensorMapIndex = container.getAttribute('sensor-map-index');
-    this.mappedOverRemove = container.getAttribute('sensor-map-remove');
+
+    const removeContainer = e.classList.contains('drag-over-remove') ? e : e.closest('.drag-over-remove');
+    if (removeContainer) {
+      this.mappedOverRemove = removeContainer.getAttribute('sensor-map-remove');
+    }
   }
 
   cdkDragDrop(event: CdkDragDrop<SensorMapItem[]>, type: string) {
     this.dragType = '';
-    this.isDragStat = false;
-    if (type === 'add' && this.sensorMapIndex !== null) {
+    if (type === 'add' && this.sensorMapIndex !== null &&
+      this.droppable(this.sensorMapKeys[this.sensorMapIndex].key, this.dragedItem)) {
       if (this.sensorMapList[this.sensorMapIndex]) {
         this.availableSensors.push(this.sensorMapList[this.sensorMapIndex]);
       }
@@ -117,6 +135,7 @@ export class CssGridComponent implements OnInit {
       }
     }
     this.setPlaceHolders();
+    this.dragedItem = null;
   }
 
   emitMapping() { // TODO for save data
