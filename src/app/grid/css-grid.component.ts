@@ -47,6 +47,7 @@ export class CssGridComponent implements OnInit {
   sensorMapIndex: string;
   mappedOverRemove: string;
   isDragStat = false;
+  dragType: string;
 
   constructor(@Inject(DOCUMENT) private document) { }
 
@@ -62,7 +63,11 @@ export class CssGridComponent implements OnInit {
       { id: '13', type: "Handle", name: "Handle", status: 'open', pdu: '192.168.1.13' },
       { id: '14', type: "Lock", name: "Lock", status: 'locked', pdu: '192.168.1.14' },
       { id: '15', type: "Temperature", name: "E", status: 'closed', pdu: '192.168.1.15' },
-      { id: '16', type: "Door", name: "F", status: 'closed', pdu: '192.168.1.16' }
+      { id: '17', type: "Door", name: "Door1", status: 'closed', pdu: '192.168.1.17' },
+      { id: '18', type: "Door", name: "Door2", status: 'closed', pdu: '192.168.1.18' },
+      { id: '19', type: "Door", name: "Door3", status: 'closed', pdu: '192.168.1.19' },
+      { id: '20', type: "Door", name: "Door4", status: 'closed', pdu: '192.168.1.20' },
+      { id: '16', type: "Door", name: "Door5", status: 'closed', pdu: '192.168.1.16' },
     ];
   }
 
@@ -79,7 +84,8 @@ export class CssGridComponent implements OnInit {
     this.mappingPlaceholder = this.sensorMapList.map((v) => !v);
   }
 
-  cdkDragMoved(event) {
+  cdkDragMoved(event, type) {
+    this.dragType = type;
     this.sensorMapIndex = null;
     this.mappedOverRemove = null;
     this.isDragStat = true;
@@ -96,6 +102,7 @@ export class CssGridComponent implements OnInit {
   }
 
   cdkDragDrop(event: CdkDragDrop<SensorMapItem[]>, type: string) {
+    this.dragType = '';
     this.isDragStat = false;
     if (type === 'add' && this.sensorMapIndex !== null) {
       if (this.sensorMapList[this.sensorMapIndex]) {

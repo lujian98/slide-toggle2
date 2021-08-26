@@ -13,7 +13,7 @@
 
   <div *ngIf="item" cdkDrag
     [cdkDragData]="item"
-    (cdkDragMoved)="cdkDragMoved($event)"
+    (cdkDragMoved)="cdkDragMoved($event, 'remove')"
     class="sensor-mapping-item"
     [ngClass]="isDragStat ? 'sensor-mapping-drag' : ''">
     {{item.name}}
@@ -35,19 +35,27 @@
 </div>
 
 <div class="grid-header available-list-header">Available Sensors</div>
+
+<div cdkDropList [ngStyle]="{'display': dragType == 'remove' ? '' : 'none'}"
+  [style.grid-row]="2"
+  [attr.sensor-map-remove]="-1"
+  class="sensor-map-remove-placeholder drag-drop-over">
+  Drag and drop here to remove
+</div>
+
+
 <div cdkDropList *ngFor="let item of availableSensors; index as i"
   (cdkDropListDropped)="cdkDragDrop($event, 'add')"
   [style.grid-row]="i + 2"
   class="available-list-cell">
-  <div cdkDrag
+  <div cdkDrag *ngIf="dragType != 'remove'"
     [cdkDragData]="item"
-    (cdkDragMoved)="cdkDragMoved($event)"
+    (cdkDragMoved)="cdkDragMoved($event, 'add')"
     [attr.sensor-map-remove]="item.id"
     class="drag-drop-over">
     {{item.name}}
     <div *cdkDragPlaceholder style="display: none"></div>
   </div>
-
 </div>
 
 <div class="grid-header">PDU</div>

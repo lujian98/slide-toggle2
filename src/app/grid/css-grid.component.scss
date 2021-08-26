@@ -1,7 +1,7 @@
 
 :host {
   display: grid;
-  grid-template-columns: 150px 1.2fr 150px 200px 150px;
+  grid-template-columns: 150px 1.2fr 150px 300px 150px;
   grid-row-gap: 1 * 2px;
   width: 90%;
   margin-top: 20px;
@@ -51,6 +51,11 @@
   .available-list-cell {
     grid-column: 4;
     margin-left: 20px;
+  }
+
+  .sensor-map-remove-placeholder {
+    grid-column: 4;
+    // height: 250px;
   }
 
   .available-link-cell {
