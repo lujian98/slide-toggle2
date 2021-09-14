@@ -1,22 +1,11 @@
+<sun-slide-toggle [checked]="true">Slide Toggle</sun-slide-toggle>
 
-<mat-slide-toggle>Slide me!</mat-slide-toggle>
+<div>&nbsp;</div>
+<sun-slide-toggle [checked]="checked" (change)="onChange($event)">
+  {{checked?'Checked':'Unchecked'}}
+</sun-slide-toggle>
 
-<app-slide-toggle [checked]="true"></app-slide-toggle>
-
-
-
-
-<!--
-
-  <app-remapping
-  [initialMapping]="initialMapping"
-  (mapping)="updateMapping($event)"
-></app-remapping>
-
-<cdk-drag-drop-connected-sorting-example></cdk-drag-drop-connected-sorting-example>
-
-
-<app-css-grid></app-css-grid>
-
--->
-
+<div>&nbsp;</div>
+<sun-slide-toggle [disabled]="true">Disabled</sun-slide-toggle>
+<div>&nbsp;</div>
+<sun-slide-toggle [checked]="true" [disabled]="true">Disabled</sun-slide-toggle>
