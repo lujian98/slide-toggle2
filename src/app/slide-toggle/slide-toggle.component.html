@@ -1,0 +1,37 @@
+<label [attr.for]="inputId" class="sun-slide-toggle-label" #label>
+  <div #toggleBar class="sun-slide-toggle-bar" [ngClass]="checked?'sun-slide-toggle-bar-color-checked':'sun-slide-toggle-bar-color'">
+
+    <input #input class="sun-slide-toggle-input cdk-visually-hidden" type="checkbox"
+           role="switch"
+           [checked]="checked"
+           (change)="_onChangeEvent($event)"
+           (click)="_onInputClick($event)">
+
+    <div class="sun-slide-toggle-thumb-container" [ngClass]="checked?'slide-toggle-thumb-container-checked':''"
+         #thumbContainer>
+
+      <div class="sun-slide-toggle-thumb">
+        <div class="sun-slide-toggle-thumb-inner"></div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+  <!--
+
+
+
+  <span class="mat-slide-toggle-content" #labelContent (cdkObserveContent)="_onLabelTextChange()">
+    <span style="display:none">&nbsp;</span>
+    <ng-content></ng-content>
+  </span>
+    -->
+</label>
+
+<!--
+
+-->
+
